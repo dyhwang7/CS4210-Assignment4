@@ -1,13 +1,12 @@
 #-------------------------------------------------------------------------
-# AUTHOR: your name
-# FILENAME: title of the source file
-# SPECIFICATION: description of the program
+# AUTHOR: Daeyoung Hwang
+# FILENAME: deep_learning.py
+# SPECIFICATION: figuring out which parameters are best for deep neural network to predict clothes 
 # FOR: CS 4210- Assignment #4
 # TIME SPENT: how long it took you to complete the assignment
 #-----------------------------------------------------------*/
 
 #IMPORTANT NOTE: YOU CAN USE ANY PYTHON LIBRARY TO COMPLETE YOUR CODE.
-
 #importing the libraries
 import tensorflow as tf
 from tensorflow import keras
@@ -35,8 +34,7 @@ def build_model(n_hidden, n_neurons_hidden, n_neurons_output, learning_rate):
     #Compiling the Model specifying the loss function and the optimizer to use.
     model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
     return model
-
-
+  
 #To install Tensor Flow on your terminal
 #python -m pip install --upgrade tensorflow
 
@@ -64,7 +62,7 @@ for h in n_hidden:                          #looking or the best parameters w.r.
         for l in l_rate:                    #looking or the best parameters w.r.t the learning rate
 
             #build the model for each combination by calling the function:
-            model = build_model()
+            model = build_model(h, h, n,l)
 
             #To train the model
             history = model.fit(X_train, y_train, epochs=5, validation_data=(X_valid, y_valid))  #epochs = number times that the learning algorithm will work through the entire training dataset.
@@ -72,9 +70,7 @@ for h in n_hidden:                          #looking or the best parameters w.r.
             #Calculate the accuracy of this neural network and store its value if it is the highest so far. To make a prediction, do:
             class_predicted = np.argmax(model.predict(X_test), axis=-1)
             #-->add your Pyhton code here
-            print(class_predicted)
-            # for (x_testSample, y_testSample) in zip(X_test, y_test):
-            #     if
+
             # print("Highest accuracy so far: " + str(highestAccuracy))
             # print("Parameters: " + "Number of Hidden Layers: " + str(h) + ",number of neurons: " + str(n) + ",learning rate: " + str(l))
             # print()
@@ -97,6 +93,3 @@ pd.DataFrame(history.history).plot(figsize=(8, 5))
 plt.grid(True)
 plt.gca().set_ylim(0, 1) # set the vertical range to [0-1]
 plt.show()
-
-
-
