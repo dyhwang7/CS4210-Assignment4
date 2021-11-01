@@ -70,10 +70,16 @@ for h in n_hidden:                          #looking or the best parameters w.r.
             #Calculate the accuracy of this neural network and store its value if it is the highest so far. To make a prediction, do:
             class_predicted = np.argmax(model.predict(X_test), axis=-1)
             #-->add your Pyhton code here
-
-            # print("Highest accuracy so far: " + str(highestAccuracy))
-            # print("Parameters: " + "Number of Hidden Layers: " + str(h) + ",number of neurons: " + str(n) + ",learning rate: " + str(l))
-            # print()
+            count = 0
+            for i in range(len(class_predicted)):
+              if class_predicted[i] == y_test[i]:
+                  count += 1
+            accuracy = count / len(X_test)
+            if accuracy > highestAccuracy:
+              highestAccuracy = accuracy
+              print("Highest accuracy so far: " + str(highestAccuracy))
+              print("Parameters: " + "Number of Hidden Layers: " + str(h) + ",number of neurons: " + str(n) + ",learning rate: " + str(l))
+              print()
 
 #After generating all neural networks, print the final weights and biases of the best model
 weights, biases = model.layers[1].get_weights()
